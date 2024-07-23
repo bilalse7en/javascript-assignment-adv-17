@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    
+</head>
+<body>
+
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="javascript:void(0)">Student Attendance Portal</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class="btn btn-warning ms-2">
+                            <a class="nav-link p-0" id="loginButton" style="color: black; text-decoration: none;"
+                                href="login.html">Login</a>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="container my-3">
+    <div class="row justify-content-center">
+        <h2 class="card-title text-center mb-4 text-secondary">Student Attendance Portal</h2>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <ol>
+                        <li><b>Access Portal:</b> Log in to the Student Attendance Portal.</li>
+                        <li><b>Manual Entry:</b>
+                            <ul>
+                                <li>Fill out student details (first name, last name, email, etc.) in the form.</li>
+                                <li>Submit the form to add students.</li>
+                            </ul>
+                        </li>
+                        <li><b>Excel Upload:</b>
+                            <ul>
+                                <li>Drag and drop or select an Excel file in the File Drop Zone.</li>
+                                <li>Portal extracts and processes student data from the file.</li>
+                            </ul>
+                        </li>
+                        <li><b>Validation:</b> Ensure data accuracy through validation checks.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <ol start="5">
+                        <li><b>Display:</b> View student data in a paginated table format.</li>
+                        <li><b>Edit/Delete:</b> Manage records with options to edit or delete entries.</li>
+                        <li><b>Export/Reports:</b> Export data and generate attendance reports as needed.</li>
+                        <li><b>Logout:</b> Securely log out after use to protect data.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="file-drop-section my-4">
+    <div id="file-drop-zone" class="file-drop-zone">
+        <h1 class="h1 mb-0 py-5 text-bg-success">Drag & Drop your Excel file here</h1>
+        <input type="file" id="file-input" accept=".xlsx, .xls" style="display: none;" />
+    </div>
+</div>
+
+<div class="row w-100 m-0">
+    <div class="col-md-6">
+        <label class="align-items-center bg-gradient-primary d-flex d-inline-flex ps-3 rounded-3 text-white" for="table-filter">
+            Search:
+            <input class="form-control w-auto ms-2" type="text" id="table-filter" placeholder="Type to search...">
+        </label>
+    </div>
+    <div class="col-md-6 text-end">
+        <button id="addStudentBtn" class="btn btn-dark ms-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">Add New Student</button>
+        <button id="deleteAllBtn" class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">Delete All</button>
+    </div>
+</div>
+
+<div class="table-responsive mt-4" style="border-left: 6px double #1dff00;">
+    <table id="attendanceTable" class="mb-0 table table-bordered table-borderless table-dark table-hover table-striped" style="border-collapse: separate;">
+        <thead>
+            <tr>
+                <th class="bg-gradient">First Name</th>
+                <th class="bg-gradient">Last Name</th>
+                <th class="bg-gradient">Email</th>
+                <th class="bg-gradient">Roll Number</th>
+                <th class="bg-gradient">Batch Number</th>
+                <th class="bg-gradient">Timing</th>
+                <th class="bg-gradient">Days</th>
+                <th class="bg-gradient">Teacher Name</th>
+                <th class="bg-gradient">Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<nav aria-label="Page navigation">
+    <ul id="pagination" class="pagination justify-content-center mt-4 pagination-sm">
+
+    </ul>
+</nav>
+
+<div id="addStudentModal" class="modal fade" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header text-bg-dark">
+                <h5 class="modal-title" id="addStudentModalLabel">Enroll New Student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+            </div>
+            <div class="modal-body">
+                <form id="attendanceForm" class="m-0 row w-100">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName" class="form-label">First Name:</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label">Last Name:</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="rollNumber" class="form-label">Roll Number:</label>
+                        <input type="text" class="form-control" id="rollNumber" name="rollNumber" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="batchNumber" class="form-label">Batch Number:</label>
+                        <input type="text" class="form-control" id="batchNumber" name="batchNumber" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="timing" class="form-label">Timing:</label>
+                        <select class="form-select" id="timing" name="timing" required>
+                            <option value="9:AM to 11:AM">9:AM to 11:AM</option>
+                            <option value="11:AM to 1:PM">11:AM to 1:PM</option>
+                            <option value="1:PM to 3:PM">1:PM to 3:PM</option>
+                            <option value="3:PM to 5:PM">3:PM to 5:PM</option>
+                            <option value="5:PM to 7:PM">5:PM to 7:PM</option>
+                            <option value="7:PM to 9:PM">7:PM to 9:PM</option>
+                            <option value="9:PM to 11:PM">9:PM to 11:PM</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="days" class="form-label">Days:</label>
+                        <select class="form-select" id="days" name="days" required>
+                            <option value="weekdays 1: MON, WED, FRI">weekdays 1: MON, WED, FRI</option>
+                            <option value="weekdays 2: TUE, THUR, SAT">weekdays 2: TUE, THUR, SAT</option>
+                            <option value="Weekend: 1 to 4">Weekend: 1 to 4</option>
+                            <option value="Weekend: 4 to 7">Weekend: 4 to 7</option>
+                            <option value="Weekend: 7 to 10">Weekend: 7 to 10</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="teacherName" class="form-label">Teacher Name:</label>
+                        <select class="form-select" id="teacherName" name="teacherName" required>
+                            <option value="Mr. Smith">Mr. Smith</option>
+                            <option value="Ms. Johnson">Ms. Johnson</option>
+                            <option value="Mr. Brown">Mr. Brown</option>
+                            <option value="Ms. Davis">Ms. Davis</option>
+                            <option value="Mr. Wilson">Mr. Wilson</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer text-bg-dark">
+                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-success">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+  
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-bg-dark">
+                <h5 class="modal-title" id="deleteConfirmModalLabel">Delete Confirmation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete all student data?
+            </div>
+            <div class="modal-footer text-bg-dark">
+                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">No</button>
+                <button id="confirmDeleteAllBtn" type="button" class="btn btn-outline-success">Yes, Delete All</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header text-bg-dark">
+                <h5 class="modal-title" id="editStudentModalLabel">Edit Student Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editStudentForm" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="editFirstname" class="form-label">First Name:</label>
+                        <input type="text" class="form-control" id="editFirstname" name="firstname" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="editLastname" class="form-label">Last Name:</label>
+                        <input type="text" class="form-control" id="editLastname" name="lastname" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="editEmail" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="editEmail" name="email" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="editRollnumber" class="form-label">Roll Number:</label>
+                        <input type="text" class="form-control" id="editRollnumber" name="rollnumber" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="editBatchnumber" class="form-label">Batch Number:</label>
+                        <input type="text" class="form-control" id="editBatchnumber" name="batchnumber" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="editTiming" class="form-label">Timing:</label>
+                        <select class="form-select" id="editTiming" name="timing" required>
+                            <option value="8:00-9:00">8:00-9:00</option>
+                            <option value="9:00-10:00">9:00-10:00</option>
+                            <option value="10:00-11:00">10:00-11:00</option>
+                            <option value="11:00-12:00">11:00-12:00</option>
+                            <option value="12:00-1:00">12:00-1:00</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="editDays" class="form-label">Days:</label>
+                        <select class="form-select" id="editDays" name="days" required>
+                            <option value="Mon-Fri">Mon-Fri</option>
+                            <option value="Mon-Wed-Fri">Mon-Wed-Fri</option>
+                            <option value="Tue-Thu">Tue-Thu</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="editTeachername" class="form-label">Teacher Name:</label>
+                        <select class="form-select" id="editTeachername" name="teachername" required>
+                            <option value="Mr. Smith">Mr. Smith</option>
+                            <option value="Ms. Johnson">Ms. Johnson</option>
+                            <option value="Mr. Brown">Mr. Brown</option>
+                            <option value="Ms. Davis">Ms. Davis</option>
+                            <option value="Mr. Wilson">Mr. Wilson</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-bg-dark">
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-success" id="saveEditStudentBtn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+      <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script> -->
+      <script src="app.js"></script>
+      <script src="login.js"></script>
+</body>
+</html>

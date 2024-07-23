@@ -1,0 +1,194 @@
+@font-face {
+  font-family: 'prosto';
+  src: url('./font/Prosto_One/ProstoOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'm-plus';
+  src: url('./font/M_PLUS_Rounded_1c/MPLUSRounded1c-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'm-plus', Arial, sans-serif;
+  background-color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  transition: top 0.3s ease-in-out; /* Smooth transition for animation */
+}
+/* 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  animation: slideDown 0.3s ease-in-out;
+} */
+
+@keyframes slideDown {
+  0% {
+      transform: translateY(-100%);
+  }
+  100% {
+      transform: translateY(0);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'prosto';
+}
+
+.kanban-board {
+  padding: 20px;
+}
+
+.column {
+  border-radius: 10px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.column h2 {
+  margin-top: 0;
+}
+
+.task {
+  padding: 30px 25px 50px 10px;
+  margin: 0;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.task.dragging {
+  opacity: 0.5;
+}
+
+.task.yellow {
+  background-color: #ffff99;
+}
+
+.task.light-green {
+  background-color: #c6efce;
+}
+
+.ca-date,
+.ua-date {
+  font-size: 12px;
+}
+
+.ca-date {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.ua-date {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group input,
+.input-group button {
+  font-family: 'm-plus', Arial, sans-serif;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(0deg, rgba(0, 212, 255, 0.8) 0%, rgb(0 114 220 / 80%) 50%, rgba(0, 212, 255, 0.8) 100%);
+}
+
+.bg-gradient-secondary {
+    background: linear-gradient(0deg, rgba(255, 193, 7, 0.8) 0%, rgb(255 134 0 / 80%) 50%, rgba(255, 193, 7, 0.8) 100%);
+}
+
+.bg-gradient-success {
+    background: linear-gradient(0deg, rgba(40, 167, 69, 0.8) 0%, rgb(21 106 0 / 80%) 50%, rgba(40, 167, 69, 0.8) 100%);
+}
+
+.file-drop-zone {
+  border: 2px dashed #008607;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.file-drop-zone:hover {
+  background-color: #f8f9fa;
+}
+
+#pagination .page-item .page-link {
+  color: white;
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+#pagination .page-item .page-link:hover {
+  background-color: #495057;
+  border-color: #495057;
+}
+
+#pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+#pagination .page-item .fa {
+  color: white;
+}
+
+#pagination .page-item .fa:hover {
+  color: #007bff;
+}
+
+.key, .key2 {
+  border: .4rem solid black;
+  border-radius: .5rem;
+  margin: 5px;
+  transition: all .07s ease;
+  text-align: center;
+  color: white;
+  background: rgba(0,0,0,0.4);
+  text-shadow: 0 0 .5rem black;
+}
+
+.playing {
+  transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0 0 1rem #ffc600;
+}
+
+kbd {
+  display: block;
+  font-size: 20px;
+}
+
+.sound {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  color: #ffc600;
+}
+
+table tr td {
+  font-size: 14px;
+  font-family: 'm-plus', Arial, sans-serif;
+}
+
+table tr th {
+  font-family: 'prosto'
+}
